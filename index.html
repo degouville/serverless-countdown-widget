@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=100, initial-scale=1.0">
+  <title>Countdown</title>
+
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+
+    #app {
+      font-family: 'Press Start 2P', sans-serif;
+      font-size: 2em;
+      color: #fffe;
+    }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script>
+    const deadline = new URLSearchParams(window.location.search).get('d')
+
+    if(!deadline) {
+      alert(`You should set a date as parameter like 👉 Sep 30, ${ new Date().getYear() } 00:00:00 !`)
+    } else {
+      const second = 1000
+      const minute = second * 60
+      const hour = minute * 60
+      const day = hour * 24
+      const countDown = new Date(deadline).getTime()
+
+      const getRemainingTime = () => {
+        const now = new Date().getTime()
+        const distance = countDown - now
+        const isDone = distance < 0
+        const days = ~~(distance / day)
+        const digitalize = n => n > 9 ? n : `0${ n }`
+        const hours = digitalize(~~((distance % day) / hour))
+        const minutes = digitalize(~~((distance % hour) / minute))
+        const seconds = digitalize(~~((distance % minute) / second))
+
+        document.getElementById('app').innerText = `${ days } days, ${ hours }:${ minutes }:${ seconds }`
+
+        if(isDone)
+          clearInterval(timer)
+      }
+
+      const timer = setInterval(getRemainingTime)
+    }
+  </script>
+</body>
+</html>
