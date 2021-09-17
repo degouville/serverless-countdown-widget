@@ -23,7 +23,7 @@
     const deadline = new URLSearchParams(window.location.search).get('d')
 
     if(!deadline) {
-      alert(`You should set a date as parameter like 👉 '?d=Jan 1, ${ new Date().getYear() + 1 } 00:00:00' !`)
+      alert(`You should set a date as parameter like 👉 '?d=Jan 1, ${ new Date().getFullYear() + 1 } 00:00:00' !`)
     } else {
       const second = 1000
       const minute = second * 60
